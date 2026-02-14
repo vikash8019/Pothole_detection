@@ -105,7 +105,7 @@ footer {
 st.markdown("# 🚧 Pothole Detection Dashboard")
 
 # ---------------- LOAD MODEL ----------------
-model = YOLO("model/best.pt")   # PATH HERE
+model = YOLO("best.pt")   # PATH HERE
 
 # ---------------- SIDEBAR ----------------
 st.sidebar.title("Settings")
@@ -204,3 +204,4 @@ with tab3:
 # ---------------- FOOTER ----------------
 st.markdown("---")
 st.markdown("Made with ❤️ | Pothole Detection AI")
+
