@@ -352,7 +352,7 @@ st.markdown("""
 # ---------------- LOAD MODEL ----------------
 @st.cache_resource
 def load_model():
-    return YOLO("model/best.pt")
+    return YOLO("best.pt")
 
 model = load_model()
 
@@ -574,3 +574,4 @@ st.markdown("""
     <p style="font-size: 0.8rem; color: #a0aec0;">Helping make roads safer, one detection at a time</p>
 </div>
 """, unsafe_allow_html=True)
+
