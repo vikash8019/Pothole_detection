@@ -184,24 +184,36 @@ with tab2:
 
 # ================= LIVE CAMERA TAB =================
 with tab3:
-    run = st.checkbox("Start Camera")
-    frame_window = st.image([])
+    st.subheader("Live Camera Detection")
 
-    camera = cv2.VideoCapture(0)
+    img_file = st.camera_input("Take a Picture")
 
-    while run:
-        ret, frame = camera.read()
-        if not ret:
-            break
+    if img_file is not None:
+        image = Image.open(img_file)
 
-        results = model(frame, conf=confidence, max_det=50, iou=0.7)
+        results = model(image, conf=confidence, max_det=50, iou=0.7)
         annotated = results[0].plot()
 
-        frame_window.image(annotated, channels="BGR")
+        st.image(annotated, caption="Detected")
 
-    camera.release()
+        pothole_count = len(results[0].boxes)
+        st.metric("Potholes Detected", pothole_count)
+
+        # Download Result
+        result_img = Image.fromarray(annotated)
+        buf = io.BytesIO()
+        result_img.save(buf, format="PNG")
+        byte_im = buf.getvalue()
+
+        st.download_button(
+            "Download Result",
+            byte_im,
+            file_name="camera_result.png"
+        )
+
 
 # ---------------- FOOTER ----------------
 st.markdown("---")
 st.markdown("Made with ❤️ | Pothole Detection AI")
+
 
